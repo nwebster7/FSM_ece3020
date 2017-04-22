@@ -11,6 +11,7 @@ public:
 	FSM(int, int, std::string);
 	void fillStates();
 	void addNode(std::string);
+	
 private:
 	int states;
 	int inBits;
