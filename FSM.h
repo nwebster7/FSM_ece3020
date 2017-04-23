@@ -21,6 +21,8 @@ class Arc
 {
 	public:
 		Arc(Node* , Node* , std::string );
+		std::string getFromNode();
+		std::string getInputs();
 	private:
 		std::string fromNode;
 		std::string toNode;
