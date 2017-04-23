@@ -12,8 +12,16 @@ FSM::FSM(int numStates, int numInBits, string machType)
 
 FSM::~FSM() 
 {
-	nodes.clear();
-	arcs.clear();
+	for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    	delete (*it);
+   	} 
+   	nodes.clear();
+	
+	for (vector< Arc* >::iterator it = arcs.begin(); it != arcs.end(); ++it) {
+    	delete (*it);
+   	} 
+   	arcs.clear();
+	
 }
 
 void FSM::fillStates()
