@@ -57,7 +57,7 @@ void FSM::addNode(string nodeName)
 
 	if(typeFSM == "mealy")
 	{
-		MealyNode(nodeName);
+		nodes.push_back(MealyNode(nodeName))
 	}
 	else
 	{
@@ -89,8 +89,7 @@ void FSM::addNode(string nodeName)
 				else j++;
 			}
 		}
-
-		MooreNode(nodeName, temp);
+		nodes.push_back(MooreNode(nodeName, temp));
 	}
 }
 
@@ -99,10 +98,10 @@ Node::Node(string nodeName)
 	name = nodeName;
 }
 
-Arc::Arc(Node* n1Ptr, Node* n2Ptr, string inputBits)
+Arc::Arc(Node node1, Node node2, string inputBits)
 {
-	pair[0] = n1Ptr;
-	pair[1] = n2Ptr;
+	pair[0] = node1;
+	pair[1] = node2;
 	inputs = inputBits;
 }
 
@@ -111,7 +110,7 @@ MooreNode::MooreNode(string nodeName, string out) : Node(nodeName)
 	output = out;
 }
 
-MooreArc::MooreArc(Node* n1Ptr, Node* n2Ptr, std::string inputBits) : Arc(n1Ptr, n2Ptr, inputBits)
+MooreArc::MooreArc(Node node1, Node node2, std::string inputBits) : Arc(node1, node2, inputBits)
 {
 	//calls parent constuctor
 }
@@ -121,7 +120,7 @@ MealyNode::MealyNode(std::string nodeName) : Node(nodeName)
 	//calls parent constructor
 }
 
-MealyArc::MealyArc(Node* n1Ptr, Node* n2Ptr, string inputBits, string out) : Arc(n1Ptr, n2Ptr, inputBits)
+MealyArc::MealyArc(Node node1, Node node2, string inputBits, string out) : Arc(node1, node2, inputBits)
 {
 	output = out;	
 }
