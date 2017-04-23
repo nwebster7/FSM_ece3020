@@ -181,7 +181,7 @@ void FSM::fillArcs()
 	string inputName;
 	string outputName;
 	int numArcs = 0;
-	int totalPossibleArcs = states * pow(2, inputBits);
+	int totalPossibleArcs = states * pow(2, inBits);
 	bool isReal = false;
 	
 	cout << "Input the start node of the new arc: ";
@@ -189,8 +189,8 @@ void FSM::fillArcs()
 	
 	while (numArcs < totalPossibleArcs) {
 		while (!isReal) {
-			for (int i = 0; i < nodes.size(); i++) {
-				if (nodes(i)->getNodeName == stateName) {
+			for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+				if (nodes(i)->getName == stateName) {
 					isReal = true;
 					break;
 				}
@@ -207,8 +207,8 @@ void FSM::fillArcs()
 		cout << "Input the end node of the new arc: ";
 		cin  >> stateName;
 		while (!isReal) {
-			for (int i = 0; i < nodes.size(); i++) {
-				if (nodes(i)->getNodeName == stateName) {
+			for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+				if (nodes(i)->getName == stateName) {
 					isReal = true;
 					break;
 				}
@@ -216,7 +216,7 @@ void FSM::fillArcs()
 
 			if (!isReal) {
 				cout << "Invalid node. \nInput the start node of the new arc: ";
-				cin >> stateName;
+				cin  >> stateName;
 			}
 		}
 
@@ -229,21 +229,35 @@ void FSM::fillArcs()
 				isReal = true;
 				break;
 			}
-			
 
 			if (!isReal) {
-				cout << "Invalid node. \nInput the start node of the new arc: ";
-				cin >> stateName;
+				cout << "Invalid input. \nPlease input the start node of the new arc: ";
+				cin  >> stateName;
+			} else {
+		
+				isReal = false;
+				while (!isReal) {
+					for (int i = 0; i < inputName.size(); i++) {
+						if (inputName[i] != "1" && inputName[i] != "0" && inputName[i] != "x" && inputName[i] != "X") {
+							isReal = false;
+							break;
+						} else {
+							isReal = true;
+						}
+					}
+					if (!isReal) {
+						cout << "Invalid input. \nPlease input the start node of the new arc: ";
+						cin >> stateName;
+					} else {
+
+					}
 			}
-		}
+		}	
 
 		if (typeFSM == "mealy") {
 
 			cout << "Input the output of the new arc: ";
 			cin  >> outputName;
-
-
-
 		}
 	}
 }
