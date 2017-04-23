@@ -28,7 +28,7 @@ void FSM::fillStates()
 			if(isalnum(temp[j]) == false)
 			{
 				j = 0;
-				cout << "Invalid state name. Contains non alphanumeric characters.\nInput state name: ";
+				cout << "Invalid state name. Contains non alpha-numeric characters.\nInput state name: ";
 				cin >> temp;
 			}
 			j++;
@@ -41,29 +41,31 @@ void FSM::addNode(string nodeName)
 {
 	if(typeFSM == "mealy" || typeFSM == "Mealy")
 	{
-		Node(nodeName);
+		MealyNode(nodeName);
 	}
 	else
 	{
 		string temp;
-		cout << "Input node output.";
+		cout << "Input the node output: ";
 		cin >> temp;
 		while(temp.size() > 0 && temp.size() < 6)
 		{
-			cout << "Invalid output length.\nInput node output: ";
+			cout << "Invalid output length.\nInput the node output: ";
 			cin >> temp;
 		}
+
 		int j = 0;
 		while(j < temp.size())
 		{
 			if(isalnum(temp[j]) == false)
 			{
 				j = 0;
-				cout << "Invalid output. Contains non alphanumeric characters.\nInput node output: ";
+				cout << "Invalid output. Contains non alphanumeric characters.\nInput the node output: ";
 				cin >> temp;
 			}
 			j++;
 		}
+
 		MooreNode(nodeName, temp);
 	}
 }
@@ -85,7 +87,17 @@ MooreNode::MooreNode(string nodeName, string out) : Node(nodeName)
 	output = out;
 }
 
+MooreArc::MooreArc(Node* n1Ptr, Node* n2Ptr, std::string inputBits) : Arc(n1Ptr, n2Ptr, inputBits)
+{
+	//calls parent constuctor
+}
+
+MealyNode::MealyNode(std::string nodeName) : Node(nodeName)
+{
+	//calls parent constructor
+}
+
 MealyArc::MealyArc(Node* n1Ptr, Node* n2Ptr, string inputBits, string out) : Arc(n1Ptr, n2Ptr, inputBits)
 {
-	output = out;
+	output = out;	
 }
