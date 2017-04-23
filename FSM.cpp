@@ -262,7 +262,35 @@ void FSM::fillArcs()
 
 void FSM::printGraph() 
 {
-	
+	string nodeName;
+	string currentNode;
+	vector < Node* > temp = nodes;
+	while (nodes.size() > 0) {
+		vector< Node,* >::iterator i;
+		for(vector< Node,* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+			currentNode = (*it)->getName();
+			if (it == nodes.begin()) {
+				nodeName = currentNode;
+			} else if (currentNode < nodeName) {
+				nodeName = currentNode;
+				i = it;
+			}
+		}
+
+		delete (*i);
+		erase (i);
+		nodes.shrink_to_fit();
+
+		cout << nodeName << "\n\t";
+
+		for(vector< Arc* >::iterator it = arcs.begin(); it != arcs.end(); ++it) {
+			currentNode = (*it)->getStartNode();
+			if (currentNode == nodeName) {
+				(*it)->printArc();
+				cout << "\t";
+			}
+		}
+	}
 }
 
 void FSM::printTable()
@@ -296,6 +324,12 @@ Arc::Arc(Node* n1Ptr, Node* n2Ptr, string inputBits)
 	pair[0] = n1Ptr;
 	pair[1] = n2Ptr;
 	inputs = inputBits;
+	fromNode = n1Ptr->getName();
+	toNode = n2Ptr->getName();
+}
+
+string Arc::getStartNode() {
+	return fromNode;
 }
 
 string Arc::getFromNode()
@@ -318,6 +352,10 @@ MooreArc::MooreArc(Node* n1Ptr, Node* n2Ptr, std::string inputBits) : Arc(n1Ptr,
 	//calls parent constuctor
 }
 
+void MooreArc::printArc() {
+	cout << toNode << " " << inputs << "\n";
+}
+
 MealyNode::MealyNode(std::string nodeName) : Node(nodeName)
 {
 	//calls parent constructor
@@ -326,4 +364,8 @@ MealyNode::MealyNode(std::string nodeName) : Node(nodeName)
 MealyArc::MealyArc(Node* n1Ptr, Node* n2Ptr, string inputBits, string out) : Arc(n1Ptr, n2Ptr, inputBits)
 {
 	output = out;	
+}
+
+void MealyArc::printArc() {
+	cout << toNode << " " << inputs << " / " << output << "\n";
 }
