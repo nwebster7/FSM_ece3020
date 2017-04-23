@@ -56,7 +56,7 @@ class MooreNode : public Node
 class MooreArc : public Arc
 {
 	public:
-		MooreArc(Node* , Node* , std::string );
+		MooreArc(Node* , Node* , std::string ); 
 	private:
 		std::string inputs;
 };
