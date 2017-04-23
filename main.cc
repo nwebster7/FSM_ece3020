@@ -6,7 +6,7 @@
 #include <math.h>
 #include <iostream>
 
-using namespace std
+using namespace std;
 
 int main() {
 	string machineType;
@@ -15,29 +15,29 @@ int main() {
 	
 	//Gets the machine type
 	cout << "Please input type of finite state machine (Mealy or Moore): ";
-	cin  << machineType
+	cin  >> machineType;
 
-	while (machineType != "Mealy" || machineType != "mealy" || machineType != "Moore" || machineType != "moore") {
+	while (machineType != "Mealy" && machineType != "mealy" && machineType != "Moore" && machineType != "moore") {
 		cout << "Invalid type of finite state machine. \nPlease input type of finite state machine (Mealy or Moore): ";
-		cin  << machineType;
+		cin  >> machineType;
 	}    
 
 	//Gets the number of states
 	cout << "Please input the total number of states (Between 1 and 25 inclusive): ";
-	cin  << numOfStates;
+	cin  >> numOfStates;
 
 	while (numOfStates > 25 || numOfStates < 1) {
 		cout << "Invalid number of states. \nPlease input the total number of states (Between 1 and 25 inclusive): ";
-		cin  << numOfStates;
+		cin  >> numOfStates;
 	}
 
 	//Gets the number of input bits
 	cout << "Please input the number of input bits: (Between 1 and 4 inclusive): ";
-	cin  << numOfInputBits;
+	cin  >> numOfInputBits;
 
 	while (numOfInputBits > 4 || numOfInputBits < 1) {
 		cout << "Invalid number of input bits. \nPlease input the number of input bits: (Between 1 and 4 inclusive): ";
-		cin  << numOfInputBits;
+		cin  >> numOfInputBits;
 	}
 
 	//Converts machine type to lower case
