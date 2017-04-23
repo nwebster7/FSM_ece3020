@@ -53,4 +53,10 @@ int main() {
 	//User fills all states
 	myFSM.fillStates();
 
+	//User fills all arcs
+	myFSM.fillArcs();
+
+	myFSM.printGraph();
+	myFSM.printTable();
+
 }
