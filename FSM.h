@@ -21,6 +21,8 @@ class Arc
 {
 	public:
 		Arc(Node* , Node* , std::string );
+		std::string getStartNode();
+		virtual void printArc();
 	private:
 		std::string fromNode;
 		std::string toNode;
@@ -66,7 +68,8 @@ class MooreNode : public Node
 class MooreArc : public Arc
 {
 	public:
-		MooreArc(Node* , Node* , std::string ); 
+		MooreArc(Node* , Node* , std::string );
+		void printArc() =0; 
 	private:
 		std::string inputs;
 };
@@ -87,6 +90,7 @@ class MealyArc : public Arc
 {
 	public:
 		MealyArc(Node* , Node* , std::string , std::string );
+		void printArc();
 	private:
 		std::string inputs;
 		std::string output;
