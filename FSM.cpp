@@ -253,13 +253,17 @@ void FSM::fillArcs()
 					}
 			}
 		}	
-
-		if (typeFSM == "mealy") {
-
-			cout << "Input the output of the new arc: ";
-			cin  >> outputName;
-		}
 	}
+}
+
+void FSM::printGraph() 
+{
+	
+}
+
+void FSM::printTable()
+{
+	
 }
 
 Node::Node(string nodeName)
