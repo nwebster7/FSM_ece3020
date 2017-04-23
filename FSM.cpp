@@ -181,19 +181,26 @@ void FSM::fillArcs()
 	string inputName;
 	Node* startPtr;
 	Node* endPtr;
+	int xCount;
 	int numArcs = 0;
 	int totalPossibleArcs = states * pow(2, inBits);
 	bool isReal = false;
 	
 	while (numArcs < totalPossibleArcs) {
+		xCount = 0;
 		cout << "Input the start node of the new arc: ";
 		cin  >> stateName;
 		while (!isReal) {
 			for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
 				if ((*it)->getName() == stateName) {
-					isReal = true;
-					startPtr = (*it);
-					break;
+					if((*it)->getArcs() < pow(2, inBits))
+					{
+						isReal = true;
+						startPtr = (*it);
+						break;
+					}
+					else 
+						cout << "Arc list full for input node.";
 				}
 			}
 
@@ -256,7 +263,15 @@ void FSM::fillArcs()
 					}
 				}
 			}
-		}	
+		}
+		addArc(startPtr, endPtr, inputName);
+		for(int j = 0; j < inputName.size(); j++)
+		{
+			if(inputName[j] == 'x' || inputName[j] == 'X')
+				xCount++;
+		}
+		numArcs +=	pow(2, xCount);
+		startPtr->setArcs(pow(2, xCount));
 	}
 }
 
@@ -301,22 +316,21 @@ void FSM::printTable()
 Node::Node(string nodeName)
 {
 	name = nodeName;
-	hasBeenUsed = false;
-}
-
-bool Node::getHasBeenUsed() 
-{
-	return hasBeenUsed;
-}
-
-void Node::setHasBeenUsed(bool used)
-{
-	hasBeenUsed = used;
 }
 
 string Node::getName()
 {
 	return name;
+}
+
+int Node::getArcs()
+{
+	return arcs;
+}
+
+void Node::setArcs(int arcAdd)
+{
+	arcs += arcAdd;
 }
 
 Arc::Arc(Node* n1Ptr, Node* n2Ptr, string inputBits)
