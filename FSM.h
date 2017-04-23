@@ -5,6 +5,7 @@
 //program will ask user to define # of states, # of input bits, and Mealy/Moore
 //before requesting further input
 
+<<<<<<< HEAD
 class FSM
 {
 	public:
@@ -23,6 +24,8 @@ class FSM
 		std::vector<Arc*> arcs;
 };
  
+=======
+>>>>>>> 5a7ea07af108333cc6829b0808290229cbec38a0
 class Node
 {
 	public:
@@ -40,6 +43,23 @@ class Arc
 		std::string toNode;
 		Node * pair[2];
 		std::string inputs;
+};
+
+class FSM
+{
+	public:
+		FSM(int , int , std::string );
+		void fillStates();
+		void addNode(std::string );
+		void fillArcs();
+
+	private:
+		int states;
+		int inBits;
+		int maxArcs;
+		std::string typeFSM;
+		std::vector<Node*> nodes;
+		std::vector<Arc*> arcs;
 };
 
 
