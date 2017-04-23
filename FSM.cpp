@@ -256,8 +256,18 @@ void FSM::fillArcs()
 					}
 				}
 			}
-		}
+		}	
 	}
+}
+
+void FSM::printGraph() 
+{
+	
+}
+
+void FSM::printTable()
+{
+
 }
 
 Node::Node(string nodeName)

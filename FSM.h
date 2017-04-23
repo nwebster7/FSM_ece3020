@@ -41,6 +41,8 @@ class FSM
 		void fillArcs();
 		void addArc(Node*, Node*, std::string);
 		bool inputOverlap(std::string, std::string );
+		void printGraph();
+		void printTable();
 
 	private:
 		int states;
