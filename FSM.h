@@ -50,9 +50,12 @@ class MooreNode : public Node
 {
 	public:
 		MooreNode(std::string , std::string );
+		bool getHasBeenUsed();
+		void setHasBeenUsed(bool );
 	private:
 		std::string name;
 		std::string output;
+		bool hasBeenUsed;
 };
 
 class MooreArc : public Arc
