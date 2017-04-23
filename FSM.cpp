@@ -10,6 +10,12 @@ FSM::FSM(int numStates, int numInBits, string machType)
 	typeFSM = machType; 
 }
 
+FSM::~FSM() 
+{
+	nodes.clear();
+	arcs.clear();
+}
+
 void FSM::fillStates()
 {
 	string temp;

@@ -9,6 +9,7 @@ class FSM
 {
 	public:
 		FSM(int , int , std::string );
+		~FSM();
 		void fillStates();
 		void addNode(std::string );
 		void fillArcs();
