@@ -1,5 +1,6 @@
 #include "FSM.h"
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -168,6 +169,79 @@ bool FSM::inputOverlap(string str1, string str2)
 		if(str1[i] != str2[i] && (str1[i] != 'x' || str1[i] != 'X' || str2[i] != 'x' || str2[i] != "X"))
 		{
 			overlap = false;
+		}
+	}
+}
+
+void FSM::fillArcs()
+{
+	string stateName;
+	string inputName;
+	string outputName;
+	int numArcs = 0;
+	int totalPossibleArcs = states * pow(2, inputBits);
+	bool isReal = false;
+	
+	cout << "Input the start node of the new arc: ";
+	cin  >> stateName;
+	
+	while (numArcs < totalPossibleArcs) {
+		while (!isReal) {
+			for (int i = 0; i < nodes.size(); i++) {
+				if (nodes(i)->getNodeName == stateName) {
+					isReal = true;
+					break;
+				}
+			}
+
+			if (!isReal) {
+				cout << "Invalid node. \nInput the start node of the new arc: ";
+				cin >> stateName;
+			}
+
+		}
+		isReal = false;
+
+		cout << "Input the end node of the new arc: ";
+		cin  >> stateName;
+		while (!isReal) {
+			for (int i = 0; i < nodes.size(); i++) {
+				if (nodes(i)->getNodeName == stateName) {
+					isReal = true;
+					break;
+				}
+			}
+
+			if (!isReal) {
+				cout << "Invalid node. \nInput the start node of the new arc: ";
+				cin >> stateName;
+			}
+		}
+
+		isReal = false;
+
+		cout << "Input the input of the new arc: ";
+		cin  >> inputName;
+		while (!isReal) {
+			if (inputName.size() <= inBits) {
+				isReal = true;
+				break;
+			}
+			
+
+			if (!isReal) {
+				cout << "Invalid node. \nInput the start node of the new arc: ";
+				cin >> stateName;
+			}
+		}
+
+		if (typeFSM == "mealy") {
+
+			cout << "Input the output of the new arc: ";
+			cin  >> outputName;
+
+
+
 		}
 	}
 }
