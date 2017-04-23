@@ -175,6 +175,11 @@ void Node::setHasBeenUsed(bool used)
 	hasBeenUsed = used;
 }
 
+string Node::getName()
+{
+	return name;
+}
+
 Arc::Arc(Node* n1Ptr, Node* n2Ptr, string inputBits)
 {
 	pair[0] = n1Ptr;
