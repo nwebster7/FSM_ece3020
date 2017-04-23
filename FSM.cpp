@@ -17,21 +17,33 @@ void FSM::fillStates()
 	{
 		cout << "Input state name: ";
 		cin >> temp;
-		while(temp.size() > 0 && temp.size() < 9)
+	
+		bool valLen = false;
+		bool valAlNum = false;
+		int j;
+		while(!valLen && !valAlNum)
 		{
-			cout << "Invalid state name length.\nInput state name: ";
-			cin >> temp;
-		}
-		int j = 0;
-		while(j < temp.size())
-		{
-			if(isalnum(temp[j]) == false)
+			valLen = true;
+			valAlNum = true;
+
+			if(temp.size() < 0 || temp.size() > 8)
 			{
-				j = 0;
-				cout << "Invalid state name. Contains non alpha-numeric characters.\nInput state name: ";
+				valLen = false;
+				cout << "Invalid state name length.\nInput state name: ";
 				cin >> temp;
 			}
-			j++;
+
+			j = 0;
+			while(j < temp.size() || valAlNum)
+			{
+				if(isalnum(temp[j]) == false)
+				{
+					valAlNum = false;
+					cout << "Invalid state name. Contains non alpha-numeric characters.\nInput state name: ";
+					cin >> temp;
+				}
+				else j++;
+			}
 		}
 		addNode(temp);
 	}
@@ -39,7 +51,11 @@ void FSM::fillStates()
 
 void FSM::addNode(string nodeName)
 {
-	if(typeFSM == "mealy" || typeFSM == "Mealy")
+	bool valLen = false;
+	bool valAlNum = false;
+	int j;
+
+	if(typeFSM == "mealy")
 	{
 		MealyNode(nodeName);
 	}
@@ -48,22 +64,30 @@ void FSM::addNode(string nodeName)
 		string temp;
 		cout << "Input the node output: ";
 		cin >> temp;
-		while(temp.size() > 0 && temp.size() < 6)
+		
+		while(!valLen && !valAlNum)
 		{
-			cout << "Invalid output length.\nInput the node output: ";
-			cin >> temp;
-		}
+			valLen = true;
+			valAlNum = true;
 
-		int j = 0;
-		while(j < temp.size())
-		{
-			if(isalnum(temp[j]) == false)
+			if(temp.size() < 0 || temp.size() > 5)
 			{
-				j = 0;
-				cout << "Invalid output. Contains non alphanumeric characters.\nInput the node output: ";
+				valLen = false;
+				cout << "Invalid state name length.\nInput state name: ";
 				cin >> temp;
 			}
-			j++;
+
+			j = 0;
+			while(j < temp.size() || valAlNum)
+			{
+				if(isalnum(temp[j]) == false)
+				{
+					valAlNum = false;
+					cout << "Invalid state name. Contains non alpha-numeric characters.\nInput state name: ";
+					cin >> temp;
+				}
+				else j++;
+			}
 		}
 
 		MooreNode(nodeName, temp);
