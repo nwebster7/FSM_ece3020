@@ -32,6 +32,7 @@ class FSM
 		void fillStates();
 		void addNode(std::string );
 		void fillArcs();
+		void addArc(Node*, Node*, std::string);
 
 	private:
 		int states;

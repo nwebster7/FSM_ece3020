@@ -111,6 +111,54 @@ void FSM::addNode(string nodeName)
 	}
 }
 
+void FSM::addArc(Node* start, Node* end, string in)
+{
+	Arc* tempPtr;
+	if(typeFSM == "moore")
+	{
+		tempPtr = new MooreArc(start, end, in);
+		arcs.push_back(tempPtr);
+	}
+	else
+	{
+		bool valLen = false;
+		bool valAlNum = false;
+		int j;
+
+		string temp;
+		cout << "Input the arc output: ";
+		cin >> temp;
+
+		while(!valLen && !valAlNum)
+		{
+			valLen = true;
+			valAlNum = true;
+
+			if(temp.size() < 0 || temp.size() > 5)
+			{
+				valLen = false;
+				cout << "Invalid output length.\nInput the node output: ";
+				cin >> temp;
+			}
+
+			j = 0;
+			while(j < temp.size() && valAlNum)
+			{
+				if(isalnum(temp[j]) == false)
+				{
+					valAlNum = false;
+					cout << "Invalid output. Contains non alpha-numeric characters.\nInput the node output: ";
+					cin >> temp;
+				}
+				else j++;
+			}
+		}
+		tempPtr = new MealyArc(start, end, in, temp);
+		arcs.push_back(tempPtr);
+		
+	}
+}
+
 Node::Node(string nodeName)
 {
 	name = nodeName;
