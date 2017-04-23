@@ -37,6 +37,7 @@ class FSM
 		void addNode(std::string );
 		void fillArcs();
 		void addArc(Node*, Node*, std::string);
+		bool inputOverlap(std::string, std::string );
 
 	private:
 		int states;

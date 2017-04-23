@@ -159,6 +159,19 @@ void FSM::addArc(Node* start, Node* end, string in)
 	}
 }
 
+bool FSM::inputOverlap(string str1, string str2)
+{
+	bool overlap = true;
+	int i = 0;
+	while(i < str1.size() && overlap)
+	{
+		if(str1[i] != str2[i] && (str1[i] != 'x' || str1[i] != 'X' || str2[i] != 'x' || str2[i] != "X"))
+		{
+			overlap = false;
+		}
+	}
+}
+
 Node::Node(string nodeName)
 {
 	name = nodeName;
