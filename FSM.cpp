@@ -10,6 +10,20 @@ FSM::FSM(int numStates, int numInBits, string machType)
 	typeFSM = machType; 
 }
 
+FSM::~FSM() 
+{
+	for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    	delete (*it);
+   	} 
+   	nodes.clear();
+	
+	for (vector< Arc* >::iterator it = arcs.begin(); it != arcs.end(); ++it) {
+    	delete (*it);
+   	} 
+   	arcs.clear();
+	
+}
+
 void FSM::fillStates()
 {
 	string temp;
@@ -100,6 +114,17 @@ void FSM::addNode(string nodeName)
 Node::Node(string nodeName)
 {
 	name = nodeName;
+	hasBeenUsed = false;
+}
+
+bool Node::getHasBeenUsed() 
+{
+	return hasBeenUsed;
+}
+
+void Node::setHasBeenUsed(bool used)
+{
+	hasBeenUsed = used;
 }
 
 Arc::Arc(Node* n1Ptr, Node* n2Ptr, string inputBits)
