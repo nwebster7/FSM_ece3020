@@ -40,7 +40,7 @@ void FSM::fillStates()
 			}
 
 			j = 0;
-			while(j < temp.size() || valAlNum)
+			while(j < temp.size() && valAlNum)
 			{
 				if(isalnum(temp[j]) == false)
 				{
@@ -82,17 +82,17 @@ void FSM::addNode(string nodeName)
 			if(temp.size() < 0 || temp.size() > 5)
 			{
 				valLen = false;
-				cout << "Invalid state name length.\nInput state name: ";
+				cout << "Invalid output length.\nInput the node output: ";
 				cin >> temp;
 			}
 
 			j = 0;
-			while(j < temp.size() || valAlNum)
+			while(j < temp.size() && valAlNum)
 			{
 				if(isalnum(temp[j]) == false)
 				{
 					valAlNum = false;
-					cout << "Invalid state name. Contains non alpha-numeric characters.\nInput state name: ";
+					cout << "Invalid output. Contains non alpha-numeric characters.\nInput the node output: ";
 					cin >> temp;
 				}
 				else j++;
