@@ -8,9 +8,9 @@
 class FSM
 {
 	public:
-		FSM(int, int, std::string);
+		FSM(int , int , std::string );
 		void fillStates();
-		void addNode(std::string);
+		void addNode(std::string );
 
 	private:
 		int states;
@@ -24,7 +24,7 @@ class FSM
 class Node
 {
 	public:
-		Node(std::string);
+		Node(std::string );
 	private:
 		std::string name;
 };
@@ -32,40 +32,52 @@ class Node
 class Arc
 {
 	public:
-		Arc(Node*, Node*, std::string);
+		Arc(Node* , Node* , std::string );
 	private:
-		std::string node1;
-		std::string node2;
+		std::string fromNode;
+		std::string toNode;
 		Node * pair[2];
 		std::string inputs;
 };
 
+
+/************************************************
+	Moore Classes
+************************************************/
 class MooreNode : public Node
 {
 	public:
-		MooreNode(std::string, std::string);
+		MooreNode(std::string , std::string );
 	private:
+		std::string name;
 		std::string output;
 };
 
 class MooreArc : public Arc
 {
 	public:
-		MooreArc()
+		MooreArc(Node* , Node* , std::string );
 	private:
-
+		std::string inputs;
 };
 
+
+/************************************************
+	Mealy Classes	
+************************************************/
 class MealyNode : public Node
 {
-
-
+	public:
+		MealyNode(std::string );
+	private:
+		std::string name;
 };
 
 class MealyArc : public Arc
 {
 	public:
-		MealyArc(Node*, Node*, std::string, std::string);
+		MealyArc(Node* , Node* , std::string , std::string );
 	private:
+		std::string inputs;
 		std::string output;
 };
