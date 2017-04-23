@@ -11,10 +11,8 @@ class Node
 		Node(std::string );
 		bool getHasBeenUsed();
 		void setHasBeenUsed(bool );
-<<<<<<< 6c4ed8c27b8fb4ec5c992e490165a7a9ab5f38a3
 		std::string getName();
-=======
->>>>>>> Some of fillArc function
+
 	private:
 		std::string name;
 		bool hasBeenUsed;
@@ -24,6 +22,8 @@ class Arc
 {
 	public:
 		Arc(Node* , Node* , std::string );
+		std::string getFromNode();
+		std::string getInputs();
 	private:
 		std::string fromNode;
 		std::string toNode;
