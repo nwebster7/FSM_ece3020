@@ -11,6 +11,7 @@ class FSM
 		FSM(int , int , std::string );
 		void fillStates();
 		void addNode(std::string );
+		void fillArcs();
 
 	private:
 		int states;
