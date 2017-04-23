@@ -166,7 +166,7 @@ bool FSM::inputOverlap(string str1, string str2)
 	int i = 0;
 	while(i < str1.size() && overlap)
 	{
-		if(str1[i] != str2[i] || (str1[i] != 'x' || str1[i] != 'X' || str2[i] != 'x' || str2[i] != "X"))
+		if(str1[i] != str2[i] || (str1[i] != 'x' || str1[i] != 'X' || str2[i] != 'x' || str2[i] != 'X'))
 		{
 			overlap = false;
 		}
@@ -238,7 +238,7 @@ void FSM::fillArcs()
 				isReal = false;
 				while (!isReal) {
 					for (int i = 0; i < inputName.size(); i++) {
-						if (inputName[i] != "1" && inputName[i] != "0" && inputName[i] != "x" && inputName[i] != "X") {
+						if (inputName[i] != '1' && inputName[i] != '0' && inputName[i] != 'x' && inputName[i] != 'X') {
 							isReal = false;
 							break;
 						} else {
