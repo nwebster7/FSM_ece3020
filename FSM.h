@@ -14,6 +14,7 @@ class Node
 		int getArcs();
 		void setArcs(int );
 		bool marked;
+		virtual std::string getOut() =0;
 
 	private:
 		std::string name;
@@ -25,9 +26,12 @@ class Arc
 	public:
 		Arc(Node* , Node* , std::string );
 		std::string getFromNode();
+		std::string getToNode();
 		std::string getInputs();
 		std::string getStartNode();
+		Node* getToPtr();
 		virtual void printArc() =0;
+		virtual std::string getOut() =0;
 	protected:
 		std::string fromNode;
 		std::string toNode;
@@ -65,6 +69,7 @@ class MooreNode : public Node
 {
 	public:
 		MooreNode(std::string , std::string );
+		std::string getOut();
 	private:
 		std::string name;
 		std::string output;
@@ -74,7 +79,8 @@ class MooreArc : public Arc
 {
 	public:
 		MooreArc(Node* , Node* , std::string );
-		void printArc(); 
+		//void printArc(); 
+		std::string getOut();
 	private:
 		std::string inputs;
 };
@@ -87,6 +93,7 @@ class MealyNode : public Node
 {
 	public:
 		MealyNode(std::string );
+		std::string getOut();
 	private:
 		std::string name;
 };
@@ -95,7 +102,8 @@ class MealyArc : public Arc
 {
 	public:
 		MealyArc(Node* , Node* , std::string , std::string );
-		void printArc();
+		//void printArc();
+		std::string getOut();
 	private:
 		std::string inputs;
 		std::string output;

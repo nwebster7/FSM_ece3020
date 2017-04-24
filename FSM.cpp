@@ -322,7 +322,86 @@ void FSM::printGraph()
 
 void FSM::printTable()
 {
-
+	string inArry[16];
+	int size = pow(2, inBits);
+	bool add = false;
+	cout << "Current	|		Next State / Output" << endl;
+	cout << "State  	| ";
+	if(inBits == 1)
+	{
+		inArry[0] = "0";
+		inArry[1] = "1";
+		cout << "X = 0	X = 1" << endl;
+		cout << "---------------------------" << endl;
+	}
+	else if(inBits == 2)
+	{
+		inArry[0] = "00";
+		inArry[1] = "01"; 
+		inArry[2] = "10";
+		inArry[3] = "11";
+		cout << "X = 00	X = 01	X = 10	X = 11" << endl;
+		cout << "---------------------------------------" << endl;
+	}
+	else if(inBits == 3)
+	{
+		inArry[0] = "000";
+		inArry[1] = "001"; 
+		inArry[2] = "010";
+		inArry[3] = "011";
+		inArry[4] = "100";
+		inArry[5] = "101"; 
+		inArry[6] = "110";
+		inArry[7] = "111";
+		cout << "X = 000	X = 001	X = 010	X = 011	X = 100	X = 101	X = 110	X = 111" << endl;
+		cout << "----------------------------------------------------------------------------------" << endl;
+	}
+	else 
+	{
+		inArry[0] = "0000";
+		inArry[1] = "0001"; 
+		inArry[2] = "0010";
+		inArry[3] = "0011";
+		inArry[4] = "0100";
+		inArry[5] = "0101"; 
+		inArry[6] = "0110";
+		inArry[7] = "0111";
+		inArry[8] = "1000";
+		inArry[9] = "1001"; 
+		inArry[10] = "1010";
+		inArry[11] = "1011";
+		inArry[12] = "1100";
+		inArry[13] = "1101"; 
+		inArry[14] = "1110";
+		inArry[15] = "1111";
+		cout << "X = 0000	X = 0001	X = 0010	X = 0011	X = 0100	X = 0101	X = 0110	X = 0111	X = 1000	X = 1001	X = 1010	X = 1011	X = 1100	X = 1101	X = 1110	X = 1111" << endl;
+		cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+	}
+	for (vector< Node* >::iterator itNd = nodes.begin(); itNd != nodes.end(); ++itNd)
+		{
+			cout << (*itNd)->getName() << "	| ";
+			for(int i = 0; i < size; i++)
+			{
+				for(vector< Arc* >::iterator itAr = arcs.begin(); itAr != arcs.end(); ++itAr) 
+				{
+					if((*itNd)->getName() == (*itAr)->getFromNode() && inputOverlap(inArry[i], (*itAr)->getInputs()))
+					{
+						add = true;
+						cout << (*itAr)->getToNode() << " / ";
+						if(typeFSM == "moore")
+							cout << (*itAr)->getToPtr()->getOut() << "	";
+						else
+							cout << (*itAr)->getOut() << "	";
+					}
+				}
+				if(!add)
+				{
+					cout << "x / x	";
+				}
+				else add = false;
+			}
+			cout << endl;
+		}
 }
 
 Node::Node(string nodeName)
@@ -334,6 +413,11 @@ Node::Node(string nodeName)
 string Node::getName()
 {
 	return name;
+}
+
+string MealyNode::getOut()
+{
+	return "An error has occured. Function only called by MealyNode.";
 }
 
 int Node::getArcs()
@@ -364,14 +448,34 @@ string Arc::getFromNode()
 	return fromNode;
 }
 
+string MooreArc::getOut()
+{
+	return "An error has occured. Function only called by Moore";
+}
+
+string Arc::getToNode()
+{
+	return toNode;
+}
+
 string Arc::getInputs()
 {
 	return inputs;
 }
 
+Node* Arc::getToPtr()
+{
+	return pair[1];
+}
+
 MooreNode::MooreNode(string nodeName, string out) : Node(nodeName)
 {
 	output = out;
+}
+
+string MooreNode::getOut()
+{
+	return output;
 }
 
 MooreArc::MooreArc(Node* n1Ptr, Node* n2Ptr, std::string inputBits) : Arc(n1Ptr, n2Ptr, inputBits)
@@ -397,4 +501,9 @@ MealyArc::MealyArc(Node* n1Ptr, Node* n2Ptr, string inputBits, string out) : Arc
 void MealyArc::printArc() {
 	string in = getInputs();
 	cout << toNode << " " << in << " / " << output << "\n";
+}
+
+string MealyArc::getOut()
+{
+	return output;
 }
