@@ -79,7 +79,7 @@ class MooreArc : public Arc
 {
 	public:
 		MooreArc(Node* , Node* , std::string );
-		//void printArc(); 
+		void printArc(); 
 		std::string getOut();
 	private:
 		std::string inputs;
@@ -102,7 +102,7 @@ class MealyArc : public Arc
 {
 	public:
 		MealyArc(Node* , Node* , std::string , std::string );
-		//void printArc();
+		void printArc();
 		std::string getOut();
 	private:
 		std::string inputs;
