@@ -282,35 +282,42 @@ void FSM::fillArcs()
 
 void FSM::printGraph() 
 {
-	string nodeName;
+	string nodeName = "";
 	string currentNode;
-	vector < Node* > temp = nodes;
-	while (nodes.size() > 0) {
-		vector< Node,* >::iterator i;
-		for(vector< Node,* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+	int nodesPrinted = 0;
+	while (nodesPrinted < states)  {
+		vector< Node* >::iterator i;
+		for(vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
 			currentNode = (*it)->getName();
-			if (it == nodes.begin()) {
+			bool isTrue = (*it)->marked;
+			if (currentNode < nodeName && !isTrue && nodeName != "") {
 				nodeName = currentNode;
-			} else if (currentNode < nodeName) {
+				cout << nodeName << "\n";
+				i = it;
+			} else if (nodeName == ""){
 				nodeName = currentNode;
 				i = it;
-			}
+			} 
 		}
-
-		delete (*i);
-		erase (i);
-		nodes.shrink_to_fit();
-
+		nodesPrinted++;
 		cout << nodeName << "\n\t";
 
 		for(vector< Arc* >::iterator it = arcs.begin(); it != arcs.end(); ++it) {
 			currentNode = (*it)->getStartNode();
+			cout << nodeName << "\n";
 			if (currentNode == nodeName) {
 				(*it)->printArc();
 				cout << "\t";
 			}
 		}
+		cout << "\r";
+		if (nodesPrinted < states) {
+			(*i)->marked = true;
+		} else {
+			break;
+		}
 	}
+	cout << "\n";
 }
 
 void FSM::printTable()
@@ -321,6 +328,7 @@ void FSM::printTable()
 Node::Node(string nodeName)
 {
 	name = nodeName;
+	marked = false;
 }
 
 string Node::getName()
@@ -372,7 +380,8 @@ MooreArc::MooreArc(Node* n1Ptr, Node* n2Ptr, std::string inputBits) : Arc(n1Ptr,
 }
 
 void MooreArc::printArc() {
-	cout << toNode << " " << inputs << "\n";
+	string in = getInputs();
+	cout << toNode << " " << in << "\n";
 }
 
 MealyNode::MealyNode(std::string nodeName) : Node(nodeName)
@@ -386,5 +395,6 @@ MealyArc::MealyArc(Node* n1Ptr, Node* n2Ptr, string inputBits, string out) : Arc
 }
 
 void MealyArc::printArc() {
-	cout << toNode << " " << inputs << " / " << output << "\n";
+	string in = getInputs();
+	cout << toNode << " " << in << " / " << output << "\n";
 }

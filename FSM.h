@@ -9,9 +9,11 @@ class Node
 {
 	public:
 		Node(std::string );
+		Node(const Node &obj);
 		std::string getName();
 		int getArcs();
 		void setArcs(int );
+		bool marked;
 
 	private:
 		std::string name;
@@ -26,7 +28,7 @@ class Arc
 		std::string getInputs();
 		std::string getStartNode();
 		virtual void printArc() =0;
-	private:
+	protected:
 		std::string fromNode;
 		std::string toNode;
 		Node * pair[2];
