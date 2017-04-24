@@ -188,8 +188,13 @@ void FSM::fillArcs()
 	
 	while (numArcs < totalPossibleArcs) {
 		xCount = 0;
-		cout << "Input the start node of the new arc: ";
+		cout << "Input the start node of the new arc (type CANCEL to stop adding): ";
 		cin  >> stateName;
+		if(stateName == "CANCEL")
+		{
+			cout << "Arc additions terminated." << endl;
+			break;
+		}
 		while (!isReal) {
 			for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
 				if ((*it)->getName() == stateName) {
