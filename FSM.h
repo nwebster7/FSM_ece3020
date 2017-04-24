@@ -9,18 +9,21 @@ class Node
 {
 	public:
 		Node(std::string );
-		bool getHasBeenUsed();
-		void setHasBeenUsed(bool );
 		std::string getName();
+		int getArcs();
+		void setArcs(int );
+
 	private:
 		std::string name;
-		bool hasBeenUsed;
+		int arcs = 0;
 };
 
 class Arc
 {
 	public:
 		Arc(Node* , Node* , std::string );
+		std::string getFromNode();
+		std::string getInputs();
 		std::string getStartNode();
 		virtual void printArc();
 	private:

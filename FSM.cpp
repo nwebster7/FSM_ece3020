@@ -179,20 +179,28 @@ void FSM::fillArcs()
 {
 	string stateName;
 	string inputName;
-	string outputName;
+	Node* startPtr;
+	Node* endPtr;
+	int xCount;
 	int numArcs = 0;
 	int totalPossibleArcs = states * pow(2, inBits);
 	bool isReal = false;
 	
-	cout << "Input the start node of the new arc: ";
-	cin  >> stateName;
-	
 	while (numArcs < totalPossibleArcs) {
+		xCount = 0;
+		cout << "Input the start node of the new arc: ";
+		cin  >> stateName;
 		while (!isReal) {
 			for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
-				if (nodes(i)->getName == stateName) {
-					isReal = true;
-					break;
+				if ((*it)->getName() == stateName) {
+					if((*it)->getArcs() < pow(2, inBits))
+					{
+						isReal = true;
+						startPtr = (*it);
+						break;
+					}
+					else 
+						cout << "Arc list full for input node.";
 				}
 			}
 
@@ -208,14 +216,15 @@ void FSM::fillArcs()
 		cin  >> stateName;
 		while (!isReal) {
 			for (vector< Node* >::iterator it = nodes.begin(); it != nodes.end(); ++it) {
-				if (nodes(i)->getName == stateName) {
+				if ((*it)->getName() == stateName) {
 					isReal = true;
+					endPtr = (*it);
 					break;
 				}
 			}
 
 			if (!isReal) {
-				cout << "Invalid node. \nInput the start node of the new arc: ";
+				cout << "Invalid node. \nInput the end node of the new arc: ";
 				cin  >> stateName;
 			}
 		}
@@ -225,14 +234,10 @@ void FSM::fillArcs()
 		cout << "Input the input of the new arc: ";
 		cin  >> inputName;
 		while (!isReal) {
-			if (inputName.size() <= inBits) {
-				isReal = true;
-				break;
-			}
+			if (inputName.size() != inBits) {
+				cout << "Invalid input. \nPlease input the input of the new arc: ";
+				cin  >> inputName;
 
-			if (!isReal) {
-				cout << "Invalid input. \nPlease input the start node of the new arc: ";
-				cin  >> stateName;
 			} else {
 		
 				isReal = false;
@@ -246,13 +251,27 @@ void FSM::fillArcs()
 						}
 					}
 					if (!isReal) {
-						cout << "Invalid input. \nPlease input the start node of the new arc: ";
-						cin >> stateName;
+						cout << "Invalid input. \nPlease input the input of the new arc: ";
+						cin >> inputName;
 					} else {
-
+						for (vector< Arc* >::iterator it = arcs.begin(); it != arcs.end(); ++it) {
+							if ((*it)->getFromNode() == stateName && inputOverlap(inputName, (*it)->getInputs())) {
+								cout << "Invalid input. Overlaps with " << (*it)->getInputs() << ".\nPlease input the input of the new arc:";
+								cin >> inputName;
+							}
+						}
 					}
+				}
 			}
-		}	
+		}
+		addArc(startPtr, endPtr, inputName);
+		for(int j = 0; j < inputName.size(); j++)
+		{
+			if(inputName[j] == 'x' || inputName[j] == 'X')
+				xCount++;
+		}
+		numArcs +=	pow(2, xCount);
+		startPtr->setArcs(pow(2, xCount));
 	}
 }
 
@@ -267,7 +286,7 @@ void FSM::printGraph()
 			currentNode = (*it)->getName();
 			if (it == nodes.begin()) {
 				nodeName = currentNode;
-			} else if (currentNode < nodeName)
+			} else if (currentNode < nodeName) {
 				nodeName = currentNode;
 				i = it;
 			}
@@ -297,22 +316,21 @@ void FSM::printTable()
 Node::Node(string nodeName)
 {
 	name = nodeName;
-	hasBeenUsed = false;
-}
-
-bool Node::getHasBeenUsed() 
-{
-	return hasBeenUsed;
-}
-
-void Node::setHasBeenUsed(bool used)
-{
-	hasBeenUsed = used;
 }
 
 string Node::getName()
 {
 	return name;
+}
+
+int Node::getArcs()
+{
+	return arcs;
+}
+
+void Node::setArcs(int arcAdd)
+{
+	arcs += arcAdd;
 }
 
 Arc::Arc(Node* n1Ptr, Node* n2Ptr, string inputBits)
@@ -326,6 +344,16 @@ Arc::Arc(Node* n1Ptr, Node* n2Ptr, string inputBits)
 
 string Arc::getStartNode() {
 	return fromNode;
+}
+
+string Arc::getFromNode()
+{
+	return fromNode;
+}
+
+string Arc::getInputs()
+{
+	return inputs;
 }
 
 MooreNode::MooreNode(string nodeName, string out) : Node(nodeName)
