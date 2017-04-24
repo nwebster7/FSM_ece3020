@@ -166,7 +166,7 @@ bool FSM::inputOverlap(string str1, string str2)
 	int i = 0;
 	while(i < str1.size() && overlap)
 	{
-		if(str1[i] != str2[i] || (str1[i] != 'x' || str1[i] != 'X' || str2[i] != 'x' || str2[i] != 'X'))
+		if(str1[i] != str2[i] && (str1[i] != 'x' && str1[i] != 'X' && str2[i] != 'x' && str2[i] != 'X'))
 		{
 			overlap = false;
 		}
@@ -292,7 +292,6 @@ void FSM::printGraph()
 			bool isTrue = (*it)->marked;
 			if (currentNode < nodeName && !isTrue && nodeName != "") {
 				nodeName = currentNode;
-				cout << nodeName << "\n";
 				i = it;
 			} else if (nodeName == ""){
 				nodeName = currentNode;
@@ -304,7 +303,6 @@ void FSM::printGraph()
 
 		for(vector< Arc* >::iterator it = arcs.begin(); it != arcs.end(); ++it) {
 			currentNode = (*it)->getStartNode();
-			cout << nodeName << "\n";
 			if (currentNode == nodeName) {
 				(*it)->printArc();
 				cout << "\t";
