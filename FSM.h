@@ -25,7 +25,7 @@ class Arc
 		std::string getFromNode();
 		std::string getInputs();
 		std::string getStartNode();
-		virtual void printArc();
+		virtual void printArc() =0;
 	private:
 		std::string fromNode;
 		std::string toNode;
@@ -72,7 +72,7 @@ class MooreArc : public Arc
 {
 	public:
 		MooreArc(Node* , Node* , std::string );
-		void printArc() =0; 
+		void printArc(); 
 	private:
 		std::string inputs;
 };
